@@ -3,24 +3,13 @@ class Post extends HTMLElement {
     super()
 
     const shadow = this.attachShadow({ mode: "open" })
-    shadow.appendChild(this.createPost())
-  }
-
-  createPost() {
-    const div = document.createElement("div")
-    div.classList.add("post")
-
-    div.innerHTML = `
+    shadow.innerHTML = `
       <h1>This is a post</h1>
 
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, magnam? Eaque inventore tempore dolores et
-        doloribus quod molestiae vitae omnis necessitatibus modi, blanditiis culpa voluptatum nam dolorem ad earum
-        voluptates?
+        This post was made entirely with web components, while it really helps on the HTML part, on the js part it's really hard to style and etc
       </p>
     `
-
-    return div
   }
 }
 
