@@ -4,8 +4,6 @@ class Post extends HTMLElement {
 
     const shadow = this.attachShadow({ mode: "open" })
     shadow.appendChild(this.createPost())
-
-    document.querySelector(".post-container").appendChild(shadow)
   }
 
   createPost() {
