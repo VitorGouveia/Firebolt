@@ -9,4 +9,5 @@ a SPA js framework made for fun :)
 - Context & Global State management
 - Content Caching
 - Native PWA package
+- API for selecting DOM elements
 - Router?
