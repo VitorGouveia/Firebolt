@@ -6,12 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Firebolt</title>
-  <script src="./index.js"></script>
+  <script src="https://unpkg.com/uhtml">/* global uhtml */</script>
+  <script type="module" src="./index.js"></script>
 </head>
 <body>
   <main>
     <h1>Firebolt</h1>
-    <form>
+    <!-- <form>
       <div>
         <p is="my-text"></p>
         <input is="input-field" />
@@ -19,18 +20,33 @@
 
       <br />
 
-      <footer>
+    -->
+      <!-- <footer> -->
         <button type="submit" is="my-custom-button">hello world</button>
-      </footer>
-    </form>
+        <div class="button">
+        </div>
+      <!-- </footer> -->
+    <!-- </form> -->
   </main>
-  <script async>
+  <script async type="module">
+    import { render, html } from 'https://unpkg.com/uhtml?module';
     var model = {
       "username": "",
       counter: 0
     }
 
+    const AuthContext = firebolt.createContext(() => {
+      // state, effect, callbacks etc
+
+      return {
+        username: "vitor"
+      }
+    })
+
     const Input = firebolt.create("input", () => {
+      const { username } = firebolt.useContext(AuthContext)
+      const username2 = firebolt.useContext(AuthContext, context => context.username)
+
       return {
         component: "input-field",
         entry: "main",
@@ -50,16 +66,27 @@
       }
     })
 
-    const Button = firebolt.create("button", () => {
+    const ButtonUI = firebolt.createElement(({ textContent, onclick, disabled }) => {
+      return html`
+        <button onclick=${(event) => onclick(event)}>
+          <strong>heyyy ${textContent}</strong>
+        </button>
+      `
+    })
+
+    const Button = firebolt.create(ButtonUI, () => {
       let counter = 0
+      let clicked = false
 
       return {
         component: "my-custom-button",
-        entry: "main",
-        textContent: `click me ${counter}`,
-        onclick() {
+        entry: "main div.button",
+        textContent: "reset form",
+        disabled: false,
+        onclick(event) {
           counter++
-          this.textContent = `click me ${counter}`
+          clicked = !clicked
+          Input.value = ""
         } 
       }
     })
@@ -82,8 +109,6 @@
     // })
 
     // console.log(useUsernameStore)
-  </script>
-  <script defer>
     ; (function () {
           // buscando todos os HTMLElement com a diretiva data-value
           var values = document.querySelectorAll("[data-value]")

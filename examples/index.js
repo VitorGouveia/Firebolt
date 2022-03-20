@@ -2,7 +2,7 @@
 //   document.querySelector("body").innerHTML =
 //     document.querySelector("main").innerHTML;
 // }
-
+import { render, html } from "https://unpkg.com/uhtml?module";
 const elementTable = {
   input: HTMLInputElement,
   button: HTMLButtonElement,
@@ -13,19 +13,49 @@ const firebolt = {
   create(tag, callback) {
     const { component, entry, ...props } = callback();
 
-    // const element = document.createElement(tag);
+    if (typeof tag !== "string") {
+      render(document.querySelector(entry), tag(props));
+      return tag;
+    }
 
-    // Object.entries(props).forEach(([propName, value]) => {
-    //   if (propName.includes("on")) {
-    //     element[propName] = value;
-    //     return;
-    //   }
+    const element = document.createElement(tag);
 
-    //   element.setAttribute(propName, value);
-    // });
+    Object.entries(props).forEach(([propName, value]) => {
+      if (propName.includes("on")) {
+        element[propName] = value;
+        return;
+      }
 
-    // document.querySelector(entry).appendChild(element);
-    // return element;
+      element.setAttribute(propName, value);
+    });
+
+    document.querySelector(entry).appendChild(element);
+    return element;
+  },
+
+  createElement(elementCallback) {
+    return (...props) => elementCallback(...props);
+  },
+
+  createContext(callback) {
+    const values = callback();
+
+    return values;
+  },
+
+  useContext(context, selectorCallback) {
+    if (!selectorCallback) {
+      return context;
+    }
+
+    return selectorCallback(context);
+  },
+};
+
+const fireboltDOM = {
+  create(tag, callback) {
+    const { component, entry, ...props } = callback();
+
     class Element extends elementTable[tag] {
       constructor(...rest) {
         const self = super({ ...rest });
@@ -49,17 +79,6 @@ const firebolt = {
 
     return new Element();
   },
-  // createStore(callback) {
-  //   const set = (setter) => {
-  //     const newState = setter({ ...store, ...actions });
-  //     result = newState;
-  //     console.log("updating...");
-  //     update();
-  //   };
-  //   const { actions, ...store } = callback(set);
-  //   let result = { ...store, ...actions };
-  //   return result;
-  // },
 };
 
 window.firebolt = firebolt;

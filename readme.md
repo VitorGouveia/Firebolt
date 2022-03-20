@@ -19,7 +19,6 @@ a SPA js framework made for fun :)
 import firebolt from "firebolt";
 
 // firebolt.register(<Component>, <name>)
-firebolt.register(<Component>, <name>)
 
 const useUsernameStore = firebolt.createStore(() => ({
   username: "",
