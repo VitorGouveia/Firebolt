@@ -1,0 +1,20 @@
+{
+  "name": "firebolt",
+  "version": "0.0.0",
+  "license": "MIT",
+  "bugs": {
+    "email": "vitorneves.gouveia10@gmail.com",
+    "url": "https://github.com/VitorGouveia/Firebolt/issues"
+  },
+  "author": {
+    "name": "Vitor Gouveia",
+    "email": "vitorneves.gouveia10@gmail.com",
+    "url": "https://github.com/VitorGouveia"
+  },
+  "readme": "https://github.com/VitorGouveia/Firebolt/blob/master/readme.md",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "packageManager": "yarn@3.2.0"
+}
