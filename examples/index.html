@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Firebolt</title>
+  <script src="./index.js"></script>
+</head>
+<body>
+  <main>
+    <h1>Firebolt</h1>
+    <!-- <input is="input-field" name="username" placeholder="Enter your username" type="text" value=""> -->
+    <!-- <input is="input-field" /> -->
+    <!-- <p is="my-text"></p> -->
+
+    <!-- <button is="my-custom-button">hello world</button> -->
+  </main>
+  <script async>
+    var model = {
+      "username": "",
+      counter: 0
+    }
+
+    const Input = firebolt.create("input", () => {
+      return {
+        component: "input-field",
+        entry: "main",
+        name: "username",
+        value: "",
+        "data-value": "username",
+        type: "text",
+        placeholder: "Enter your username"
+      }
+    })
+
+    const Text = firebolt.create("p", () => {
+      return {
+        component: "my-text",
+        entry: "main",
+        "data-html": "username"
+      }
+    })
+
+    const Button = firebolt.create("button", () => {
+      let counter = 0
+
+      return {
+        component: "my-custom-button",
+        entry: "main",
+        textContent: `click me ${counter}`,
+        onclick() {
+          counter++
+          this.textContent = `click me ${counter}`
+        } 
+      }
+    })
+
+    // const useUsernameStore = firebolt.createStore((set) => ({
+    //   username: "",
+    //   button: false,
+    //   actions: {
+    //     setUsername: (action) => {
+    //       return set(state => ({
+    //         ...state,
+    //         username: action.username
+    //       }))
+    //     }
+    //   }
+    // }))
+
+    // useUsernameStore.setUsername({
+    //   username: "dajwiopdani"
+    // })
+
+    // console.log(useUsernameStore)
+  </script>
+  <script defer>
+    ; (function () {
+          // buscando todos os HTMLElement com a diretiva data-value
+          var values = document.querySelectorAll("[data-value]")
+          // buscando todos os HTMLElement com a diretiva data-html
+          var htmls = document.querySelectorAll("[data-html]")
+          // criando um indice para os HTMLElements com a diretiva data-value
+          values = [].reduce.call(values, function (values, value) {
+            if (!values[value.dataset.value])
+              values[value.dataset.value] = [];
+            values[value.dataset.value].push(value)
+            return values
+          }, {})
+          // criando um indice para os HTMLElements com a diretiva data-html
+          htmls = [].reduce.call(htmls, function (htmls, html) {
+            if (!htmls[html.dataset.html])
+              htmls[html.dataset.html] = [];
+            htmls[html.dataset.html].push(html)
+            return htmls
+          }, {})
+
+          // criando um evento para os HTMLElements com a diretiva data-value
+          // quando o mesmo for atualizado pelo Usuario, deverá refletir no modelo
+          // ao refletir no modelo, este deverá ser propagado para o restante da pagina.
+          var onValueInput = function (evt) {
+            model[this.key] = this.input.value
+          }
+          Object.keys(values).forEach(function (key) {
+            var inputs = values[key]
+            inputs.forEach(function (input) {
+              input.addEventListener("input", onValueInput.bind({ key, input }))
+            })
+          })
+          // modificando as propriedades de acesso do modelo
+          Object.keys(model).forEach(function (key) {
+            var _value = model[key]
+            Object.defineProperty(model, key, {
+              // get: retorna o valor para de uma determinada propriedade do modelo
+              get: function () {
+                return _value;
+              },
+              // set: ao setar algum valor no modelo, deve se propagar o mesmo para os HTMLElements
+              // com diretivas associadas a esta propriedade
+              set: function (value) {
+                _value = value
+                if (values[key]) {
+                  var inputs = values[key]
+                  inputs.forEach(function (input) {
+                    input.value = _value
+                  })
+                }
+                if (htmls[key]) {
+                  var spans = htmls[key]
+                  spans.forEach(function (span) {
+                    span.textContent = _value
+                  })
+                }
+              }
+            })
+            // atualizando a pagina com os valores iniciais
+            model[key] = _value
+          })
+        })();
+  </script>
+</body>
+</html>

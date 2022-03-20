@@ -13,5 +13,8 @@
   },
   "readme": "https://github.com/VitorGouveia/Firebolt/blob/master/readme.md",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "packageManager": "yarn@3.2.0"
 }
