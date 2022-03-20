@@ -1,4 +1,5 @@
-# Proton
+# Firebolt
+
 a SPA js framework made for fun :)
 
 # Features
