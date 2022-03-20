@@ -13,35 +13,41 @@ const firebolt = {
   create(tag, callback) {
     const { component, entry, ...props } = callback();
 
-    const element = document.createElement(tag);
+    // const element = document.createElement(tag);
 
-    Object.entries(props).forEach(([propName, value]) => {
-      if (propName.includes("on")) {
-        element[propName] = value;
-        return;
+    // Object.entries(props).forEach(([propName, value]) => {
+    //   if (propName.includes("on")) {
+    //     element[propName] = value;
+    //     return;
+    //   }
+
+    //   element.setAttribute(propName, value);
+    // });
+
+    // document.querySelector(entry).appendChild(element);
+    // return element;
+    class Element extends elementTable[tag] {
+      constructor(...rest) {
+        const self = super({ ...rest });
+
+        Object.entries(props).forEach(([propName, value]) => {
+          if (propName.includes("on")) {
+            self[propName] = value;
+            return;
+          }
+
+          self.setAttribute(propName, value);
+        });
+
+        return self;
       }
+    }
 
-      element.setAttribute(propName, value);
+    customElements.define(component, Element, {
+      extends: tag,
     });
 
-    document.querySelector(entry).appendChild(element);
-    return element;
-    // class Element extends elementTable[tag] {
-    //   constructor(...rest) {
-    //     const self = super({ ...rest });
-
-    //     Object.entries(props).forEach(([propName, value]) => {
-    //       self[propName] = value;
-    //     });
-
-    //     return self;
-    //   }
-    // }
-
-    // customElements.define(name, Element, {
-    //   extends: tag,
-    // });
-    // return new Element();
+    return new Element();
   },
   // createStore(callback) {
   //   const set = (setter) => {
