@@ -1,0 +1,110 @@
+@tailwind utilities;
+
+html {
+  font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1, "ss06" 1 !important;
+}
+
+@keyframes rainbow-color {
+  100%,0%{
+    color: rgb(255,0,0);
+  }
+  8%{
+    color: rgb(255,127,0);
+  }
+  16%{
+    color: rgb(255,255,0);
+  }
+  25%{
+    color: rgb(127,255,0);
+  }
+  33%{
+    color: rgb(0,255,0);
+  }
+  41%{
+    color: rgb(0,255,127);
+  }
+  50%{
+    color: rgb(0,255,255);
+  }
+  58%{
+    color: rgb(0,127,255);
+  }
+  66%{
+    color: rgb(0,0,255);
+  }
+  75%{
+    color: rgb(127,0,255);
+  }
+  83%{
+    color: rgb(255,0,255);
+  }
+  91%{
+    color: rgb(255,0,127);
+  }
+}
+
+html[data-theme="rgb"] a {
+  color: unset;
+  animation: rainbow-color 5s linear infinite;
+}
+
+[data-reach-skip-link] {
+  @apply sr-only;
+}
+
+[data-reach-skip-link]:focus {
+  @apply not-sr-only fixed ml-6 top-0 bg-white text-lg px-6 py-2 mt-2 outline-none focus:ring z-50;
+}
+
+.dark .invert-on-dark {
+  filter: invert(1) brightness(1.8);
+}
+
+body {
+  background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 1) 300px
+    ),
+    fixed 0 0 / 20px 20px radial-gradient(#d1d1d1 1px, transparent 0),
+    fixed 10px 10px / 20px 20px radial-gradient(#d1d1d1 1px, transparent 0);
+}
+
+.dark body {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, hsl(240, 12%, 5%) 300px),
+    fixed 0 0 / 20px 20px radial-gradient(#313131 1px, transparent 0),
+    fixed 10px 10px / 20px 20px radial-gradient(#313131 1px, transparent 0);
+}
+
+.dark {
+  --shiki-color-text: #E1E1E6 !important;
+  --shiki-token-constant: #E1E1E6 !important;
+  --shiki-token-string: #ffab70 !important;
+  --shiki-token-comment: #6b737c !important;
+  --shiki-token-keyword: #FF79C6 !important;
+  --shiki-token-parameter: #ff9800 !important;
+  --shiki-token-function: #67E480 !important;
+  --shiki-token-string-expression: #E7DE79 !important;
+  --shiki-token-punctuation: #bbb !important;
+  --shiki-token-link: #ffab70 !important;
+}
+
+.dark article pre {
+  background: hsl(240, 26%, 12%) !important;
+}
+
+.dark footer {
+  background:hsl(240, 14%, 7%) !important;
+}
+
+footer span:not(li span) {
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  footer span:not(li span) div {
+    align-items: flex-start !important;
+    flex-direction: column-reverse;
+    gap: 12px;
+  }
+}
