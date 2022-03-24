@@ -1,0 +1,203 @@
+---
+title: A new way to write declarative UIs
+---
+
+import Callout from "nextra-theme-docs/callout";
+import Bleed from "nextra-theme-docs/bleed";
+import Features from "@components/Features";
+import { Heading, Description } from "@components/Heading";
+import { motion } from "framer-motion";
+import OnView from "components/OnView";
+
+{
+// wrapped with {} to mark it as javascript so mdx will not put it under a p tag
+}
+{<Heading>🧹 Firebolt</Heading>}
+
+<Bleed>
+  <Description>A new way to write declarative UIs</Description>
+</Bleed>
+
+<Bleed>
+  <Features />
+</Bleed>
+<motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.75, delay: 3 }}
+>
+  <Callout emoji="🧹">
+    <i>
+      "It's a <strong>firebolt</strong>, the fastest broom in the world."
+    </i>
+  </Callout>
+</motion.div>
+
+<OnView>
+  Firebolt takes the old MVC approach but in a new way, giving you more control
+  over the UI and the Logic. Under the hood we use
+  <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements">
+    CustomElements
+  </a>
+  to define your components, see a list of
+  <a href="/docs/supported-browsers">supported browsers.</a>
+</OnView>
+
+<OnView>
+  <div className="mt-12 mb-20 text-center">
+    [Get Started](/docs/getting-started) · [Playground](/playground) ·
+    [Blog](/blog) · [GitHub
+    Repository](https://github.com/VitorGouveia/Firebolt)
+  </div>
+</OnView>
+
+<OnView>
+  <h2>Overview</h2>
+</OnView>
+
+<OnView>
+  ```js
+  const GithubStarButton = firebolt.create("button", () => {
+    return {
+      component: "github-star-button",
+      entry: "main section.github-star-button",
+      textContent: "Star the repository",
+      onclick(event) {
+        this.textContext = "Has already starred";
+        this.disabled = true;
+      },
+    };
+  });
+  ```
+</OnView>
+
+<OnView>
+  In this example, the `firebolt.create` method accepts a `tag` or a{" "}
+  <a href="docs/firebolt-elements">`Firebolt UI Element`</a> and{" "}
+  <a href="docs/controllers">`controller`</a> function. `tag` is the element you
+  would like to create or you could create a `Firebolt UI Element` and customize
+  it's UI entirely. the `controller` function is where you define the element
+  `props` and handle `state` and other `things`.
+</OnView>
+
+<OnView>
+  <Callout>
+    the `controller` can also just be an object an seen in the example below
+  </Callout>
+</OnView>
+
+<OnView>
+  ```js
+  const GithubStarButton = firebolt.create("button", {
+    component: "github-star-button",
+    ...<your props>
+  });
+  ```
+</OnView>
+
+<OnView>
+  when using `firebolt.create` a new element is `registered` in the DOM, if you
+  just mean to create a UI element and put it in the DOM by hand, you can
+  achieve just that by using `firebolt.createElement`:
+</OnView>
+
+<OnView>
+  ```js
+  const GithubStarButtonUI = firebolt.createElement(() => {
+    const { creatorName } = firebolt.useContext(AuthorContext);
+  
+    return `
+      <button>
+        ${creatorName}
+      </button>
+    `;
+  });
+  ```
+</OnView>
+
+<OnView>
+  when using `firebolt.createElement` you still can use all the state-related
+  features that firebolt has.
+</OnView>
+
+<OnView>
+  <Callout>
+    You can use any HTML renderer when returning from `createElement`, like
+    <a href="https://github.com/WebReflection/uhtml">`uHTML`</a> for example
+  </Callout>
+</OnView>
+
+<OnView>
+  ```js
+  const GithubStarButtonUI = firebolt.createElement(() => {
+    return html`hi mom, i'm using uHTML`;
+  });
+  ```
+</OnView>
+
+<OnView>
+  Then if you want to use the `GithubStarButtonUI` with some logic just pass it
+  as the first parameter like so:
+</OnView>
+
+<OnView>
+  ```js
+  const GithubStarButton = firebolt.create(GithubStarButtonUI, {
+    component: "github-star-button",
+    ...<your props>
+  });
+  ```
+</OnView>
+
+<OnView>
+  Firebolt gives you full control over the DOM, so you can use elements the way
+  you want. In this example, the `GithubStarButton` contains `special functions`
+  that you can use to `modify` state, `listen` to updates or change prop values.
+</OnView>
+
+<OnView>
+  <h2>Features</h2>
+</OnView>
+
+<OnView>
+  With some lines of code you can simplify the way you work with JavaScript,
+  today we have a subset of selected features but Firebolt is designed to be
+  extensible, so if you want more features, checkout the available{" "}
+  <a href="plugins">`plugins`</a>
+</OnView>
+
+<OnView>- **⚡ Fast**, **🪶 lightweight** and **reusable** elements</OnView>
+<OnView>- Built-in **state** and **context** management</OnView>
+<OnView>- **SSR** support</OnView>
+<OnView>- Temporal API polyfill</OnView>
+<OnView>- Unified Storage API</OnView>
+<OnView>- JQuery like DOM API</OnView>
+<OnView>- Easy two-way data binding</OnView>
+<OnView>- TypeScript ready</OnView>
+<OnView>- Better data-fetching API</OnView>
+<OnView>- Routing</OnView>
+<OnView>- Suspense API</OnView>
+
+<OnView>And a lot [more](/docs/getting-started).</OnView>
+
+<OnView>
+  <h2>Installing</h2>
+</OnView>
+
+first, load the script into your HTML or JavaScript file
+
+```html
+<script type="module" src="public/firebolt.js">
+```
+
+or
+
+```js
+import firebolt from "./firebolt.js";
+```
+
+then start using firebolt, it's that simple!
+
+Firebolt is created by [Vitor Gouveia](https://github.com/vitorGouveia).
+
+This docs was created using [Nextra](https://nextra.vercel.app), heavily inspired by <a href="https://swr.vercel.app">SWR</a> and <a href="https://swc.rs">SWC</a> websites

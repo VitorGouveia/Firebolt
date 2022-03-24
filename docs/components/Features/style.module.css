@@ -1,0 +1,18 @@
+.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1rem 2rem;
+  margin: 2.5rem 0 2rem;
+}
+
+@media (max-width: 860px) {
+  .features {
+    gap: 1rem 0.5rem;
+  }
+}
+
+@media (max-width: 660px) {
+  .features {
+    grid-template-columns: 1fr 1fr;
+  }
+}

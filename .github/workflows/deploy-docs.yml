@@ -1,0 +1,44 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "docs/**"
+      - ".github/workflows/deploy-docs.yml"
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [14.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install dependencies with pnpm
+        working-directory: ./docs
+        run: npx pnpm i
+
+      - name: Build docs
+        working-directory: ./docs
+        run: npx pnpm build
+
+      - name: Export docs
+        working-directory: ./docs
+        run: npx pnpm export
+
+      - name: Add .nojekyll file
+        working-directory: ./docs
+        run: touch ./out/.nojekyll
+
+      - name: Deploy to github pages
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          branch: gh-pages
+          folder: ./docs/out
