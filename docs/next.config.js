@@ -1,14 +1,13 @@
 const withNextra = require("nextra");
 
-const isGithubPages = process.env.GH_PAGES === "true";
 const projectName = "Firebolt";
 
 /** @type {import('next').NextConfig} */
 const config = {
   typescript: true,
 
-  basePath: isGithubPages ? `/${projectName}` : "",
-  assetPrefix: isGithubPages ? `/${projectName}/` : "",
+  basePath: `/${projectName}`,
+  assetPrefix: `/${projectName}/`,
   // amp: true,
   images: {
     loader: "custom",
