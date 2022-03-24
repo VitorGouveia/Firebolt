@@ -13,6 +13,7 @@ const Features: React.FC<FeaturesProps> = ({ headingText }) => {
       <p className="text-lg mb-2 text-gray-600 md:!text-2xl">{headingText}</p>
       <div className={styles.features}>
         <Feature
+          delay={1.0}
           text="Lightweight"
           icon={
             <svg
@@ -32,6 +33,7 @@ const Features: React.FC<FeaturesProps> = ({ headingText }) => {
           }
         />
         <Feature
+          delay={1.2}
           text="State & Context API"
           icon={
             <svg
@@ -51,6 +53,7 @@ const Features: React.FC<FeaturesProps> = ({ headingText }) => {
           }
         />
         <Feature
+          delay={1.4}
           text="Two-way data binding"
           icon={
             <svg
@@ -69,6 +72,7 @@ const Features: React.FC<FeaturesProps> = ({ headingText }) => {
           }
         />
         <Feature
+          delay={1.6}
           text="Suspense API"
           icon={
             <svg
@@ -87,7 +91,9 @@ const Features: React.FC<FeaturesProps> = ({ headingText }) => {
             </svg>
           }
         />
+
         <Feature
+          delay={2.0}
           text="Unified Storage API"
           icon={
             <svg
@@ -107,6 +113,7 @@ const Features: React.FC<FeaturesProps> = ({ headingText }) => {
           }
         />
         <Feature
+          delay={2.2}
           text="UI Agnostic"
           icon={
             <svg
@@ -131,6 +138,7 @@ const Features: React.FC<FeaturesProps> = ({ headingText }) => {
           }
         />
         <Feature
+          delay={2.4}
           text="Routing"
           icon={
             <svg
@@ -149,6 +157,7 @@ const Features: React.FC<FeaturesProps> = ({ headingText }) => {
           }
         />
         <Feature
+          delay={2.6}
           text="TypeScript Ready"
           icon={
             <svg
