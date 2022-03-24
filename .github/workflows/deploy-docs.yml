@@ -27,7 +27,7 @@ jobs:
 
       - name: Build docs
         working-directory: ./docs
-        run: npx pnpm build
+        run: npx pnpm gh-build
 
       - name: Export docs
         working-directory: ./docs
