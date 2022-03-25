@@ -10,9 +10,12 @@
   <script src="./index.js"></script>
 </head>
 <body>
-  <input type="text">
+  <!-- <input type="text">
 
-  <p></p>
+  <p></p> -->
+
+  <my-custom-input></my-custom-input>
+  <my-custom-button></my-custom-button>
 
   <script defer>
     const useAuthStore = firebolt.createStore(() => ({
@@ -33,18 +36,54 @@
       }
     }))
 
-    const authStore = useAuthStore()
+    const AuthContext = firebolt.createContext(() => {
+      const setUsername = useAuthStore(state => state.setUsername)
+      const user = useAuthStore(state => state.user)
 
-    authStore.setID()
-    authStore.setUsername({
-      username: "vitorgouveia"
+      function handleChangeUsername(newUsername) {
+        user.username = newUsername
+
+        setUsername({
+          username: newUsername
+        })
+      }
+
+      return {
+        user,
+        handleChangeUsername
+      }
     })
+
+    const authContext = firebolt.useContext(AuthContext)
     
-    const user = useAuthStore(state => state.user)
-    console.log(user)
+    authContext.handleChangeUsername("vitor")
+    
   </script>
 
   <script defer>
+    const button = firebolt.create("button", () => {
+      const user = firebolt.useContext(AuthContext, state => state.user)
+      const handleChangeUsername = firebolt.useContext(AuthContext, state => state.handleChangeUsername)
+
+      return {
+        component: "my-custom-button",
+        textContent: `hello ${user.username}`,
+        onclick(event) {
+          handleChangeUsername("vitor gouveia")
+          this.querySelector("button").textContent = `hello ${user.username}`
+        }
+      }
+    })
+
+    const input = firebolt.create("input", () => {
+      return {
+        component: "my-custom-input",
+        placeholder: "Please, fill in your username",
+        oninput(event) {
+          button.children[0].textContent = event.target.value
+        }
+      }
+    })
     // working two-way data binding
     // let hi = ""
 
