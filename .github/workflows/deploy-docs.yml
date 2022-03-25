@@ -9,7 +9,9 @@ on:
       - ".github/workflows/deploy-docs.yml"
 
 jobs:
-  build:
+  examples
+
+  docs:
     runs-on: ${{ matrix.os }}
 
     strategy:
