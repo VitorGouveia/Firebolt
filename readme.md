@@ -2,6 +2,34 @@
 
 a SPA js framework made for fun :)
 
+# Problem
+
+desevolver um app com minimas funcionalidades com js puro pra deixar simples
+
+negativos:
+sem two-way data binding
+API DOM imperativa
+lidar com fetch de informações
+popular informações na tela, map de data pra tela
+formulários horrivel
+router API lixo, sem redirect, sem configuração de rotas, sem basePath etc
+compartilhamento de informções entre arquivos
+salvar no localStorage precisa de JSON.stringify
+
+não quero que seja um SPA nem CSR, cada arquivo html vai ter sua logica imbutida ali
+então nao precisa de um contexto
+context basico pra autenticação
+
+tem que ter uma forma da UI e o js conversarem e trocarem dados como se não fosse nada
+como por exemplo com o CustomElements & WebComponents
+
+Oq eu não quero:
+formas especiais de tratar eventos tipo no lit("@click") e angular ([ng-app]), tudo tem que ser tratado como html normal e js normal
+
+2 threads
+ui - a ui roda aqui simples, definir os custom elements aq
+worker - todo o framework roda aqui, pegar a logica dos custom elements e executar aq
+
 # Features
 
 - Polyfill for temporal API included
@@ -11,7 +39,7 @@ a SPA js framework made for fun :)
 - Content Caching
 - Native PWA package
 - API for selecting DOM elements
-- Router?
+- Router
 
 # Syntax
 
