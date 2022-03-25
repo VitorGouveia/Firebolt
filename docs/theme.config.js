@@ -7,6 +7,8 @@ export default {
   docsRepositoryBase: "https://github.com/VitorGouveia/Firebolt/blob/master", // base URL for the docs repository
   titleSuffix: " - Firebolt 🔥",
   nextLinks: true,
+  basePath: `/Firebolt`,
+  assetPrefix: `/Firebolt/`,
   prevLinks: true,
   search: true,
   unstable_flexsearch: true,

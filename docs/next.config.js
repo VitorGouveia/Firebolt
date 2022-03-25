@@ -1,23 +1,15 @@
-const withNextra = require("nextra");
+const withNextra = require("nextra")({
+  theme: "nextra-theme-docs",
+  themeConfig: "./theme.config.js",
+  // unstable_flexsearch: true,
+});
 
-const projectName = "Firebolt";
+module.exports = withNextra({
+  basePath: "/Firebolt",
+  assetPrefix: "/Firebolt/",
 
-/** @type {import('next').NextConfig} */
-const config = {
-  typescript: true,
-
-  basePath: `/${projectName}`,
-  assetPrefix: `/${projectName}/`,
   // amp: true,
   images: {
     loader: "custom",
   },
-};
-
-module.exports = withNextra({
-  theme: "nextra-theme-docs",
-  themeConfig: "./theme.config.js",
-  unstable_flexsearch: true,
-
-  ...config,
 });
