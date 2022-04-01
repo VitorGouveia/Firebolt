@@ -11,6 +11,9 @@
     function  elementFromHTML(html) {
       const template = document.createElement("template")
 
+      // faster than innerHTML, executes script tags
+      // document.createRange().createContextualFragment(html).firstElementChild
+
       template.innerHTML = String(html).trim();
 
       return template.content.firstElementChild
