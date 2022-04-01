@@ -1,5 +1,15 @@
 const firebolt = {
   hi: "vitor",
+  createElement(tag, uiCallback) {
+    const jsx = uiCallback();
+
+    return () => jsx;
+  },
+  createController(callback) {
+    const result = callback();
+
+    return () => result;
+  },
   create(tag, controllerCallback) {
     const { component, ...props } = controllerCallback();
 
@@ -29,6 +39,12 @@ const firebolt = {
       connectedCallback() {
         if (typeof tag === "string") {
           this.innerHTML = `<${tag}>${this.textContent}</${tag}>`;
+          return;
+        }
+
+        if (typeof tag === "function") {
+          this.innerHTML = tag();
+          return;
         }
       }
 

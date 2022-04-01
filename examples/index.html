@@ -16,6 +16,7 @@
 
   <my-custom-input></my-custom-input>
   <my-custom-button></my-custom-button>
+  <my-paragraph></my-paragraph>
 
   <script defer>
     const useAuthStore = firebolt.createStore(() => ({
@@ -61,26 +62,51 @@
   </script>
 
   <script defer>
-    const button = firebolt.create("button", () => {
+    const ButtonUI = firebolt.createElement("button", () => {
+      return `
+        <button style="border: none; background: #7159c1; color: #eee;">
+          set new username
+        </button>
+      `
+    })
+
+    const LikeButtonController = firebolt.createController(() => {
       const user = firebolt.useContext(AuthContext, state => state.user)
       const handleChangeUsername = firebolt.useContext(AuthContext, state => state.handleChangeUsername)
 
       return {
         component: "my-custom-button",
-        textContent: `hello ${user.username}`,
         onclick(event) {
-          handleChangeUsername("vitor gouveia")
-          this.querySelector("button").textContent = `hello ${user.username}`
+          console.log("change user username")
         }
       }
     })
 
-    const input = firebolt.create("input", () => {
+    const button = firebolt.create(ButtonUI, LikeButtonController)
+
+    const paragraph = firebolt.create("p", () => {
+      const user = firebolt.useContext(AuthContext, state => state.user)
+
+      return {
+        component: "my-paragraph",
+        textContent: `your username: ${user.username}`
+      }
+    })
+
+    const inputUI = firebolt.createElement("input", () => {
+      return `
+        <input style="border: 1px solid #7159c1; background: #121212; color: #eee;" placeholder="Please, fill in your username" />
+      `
+    })
+
+    const input = firebolt.create(inputUI, () => {
+      const handleChangeUsername = firebolt.useContext(AuthContext, state => state.handleChangeUsername)
+
       return {
         component: "my-custom-input",
-        placeholder: "Please, fill in your username",
         oninput(event) {
-          button.children[0].textContent = event.target.value
+          handleChangeUsername(event.target.value)
+          paragraph.children[0].textContent = `your username: ${user.username}`
         }
       }
     })
